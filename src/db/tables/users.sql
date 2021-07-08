@@ -1,0 +1,11 @@
+CREATE TABLE users (
+	`id` INT UNSIGNED AUTO_INCREMENT NOT NULL,
+	`email` VARCHAR(50) UNIQUE NOT NULL,
+	`password` VARCHAR(255) NOT NULL,
+  `id_role` INT DEFAULT 2  NOT NULL,
+  `date` DATE DEFAULT NOW() NOT NULL,
+
+	CONSTRAINT users_id_pk PRIMARY KEY(id),
+  CONSTRAINT users_id_role_fk FOREIGN KEY (id)
+    REFERENCES roles (id)
+);

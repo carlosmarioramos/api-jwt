@@ -1,8 +1,22 @@
 {
   "name": "api-jwt",
+  "scripts": {
+    "start": "node src",
+    "dev": "nodemon src"
+  },
   "version": "1.0.0",
   "main": "index.js",
   "repository": "https://github.com/carlosmarioramos/api-jwt",
   "author": "Carlos Ramos <carlosmarioramos34@gmail.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "mysql": "^2.18.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.10"
+  }
 }
