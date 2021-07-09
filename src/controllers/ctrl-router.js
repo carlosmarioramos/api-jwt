@@ -90,7 +90,7 @@ exports.sigIn = async (req, res) => {
     const token = await genetareToken(user)
 
     res.status(200)
-    res.setHeader('authorization', token)
+    // res.setHeader('authorization', token)
     res.json({
       error: null,
       msg: "¡Usuario logueado!",

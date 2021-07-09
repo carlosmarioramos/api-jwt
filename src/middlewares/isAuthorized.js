@@ -8,14 +8,13 @@ exports.isAuthorized = async (req, res, next) => {
       ? authorization.split(' ')[1]
       : null
 
-  const decodedToken = await jwt.verify(token, process.env.SECRET)
-  console.log(decodedToken)
-
-  if (!token || !decodedToken) {
-    res.sendStatus(401)
-    return
+  try {
+    if (!token) return res.sendStatus(403)
+    const decodedToken = await jwt.verify(token, process.env.SECRET)
+    res.user = decodedToken
+    next()
+  } catch (error) {
+    res.sendStatus(403)
+    return new Error(error)
   }
-
-  req.user = decodedToken
-  return next()
 }
