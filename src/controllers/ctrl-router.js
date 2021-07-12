@@ -9,22 +9,8 @@ exports.root = (req, res) => {
   })
 }
 
-exports.sigUp = async (req, res) => {
-  let { email, password, confirmPassword } = req.body
-  email = email.trim()
-
-  const match = password === confirmPassword
-
-  if (!match) {
-    res.status(401)
-    res.json({
-      error: "Las contraseñas no coinciden",
-      msg: null,
-      data: null
-    })
-
-    return
-  }
+exports.signUp = async (req, res) => {
+  const { email, password } = req.body
 
   const hash = await bcrypt.hash(password, 10)
   const sql = 'INSERT INTO users (email, password) VALUES (?, ?)'
@@ -40,22 +26,17 @@ exports.sigUp = async (req, res) => {
     })
     return
   } catch (error) {
-    if (error.code === 'ER_DUP_ENTRY') {
-      res.status(401)
-      res.json({
-        error: "Usuario existente",
-        msg: null,
-        data: null
-      })
-
-      return new Error(error)
-    }
+    res.status(403)
+    res.json({
+      error,
+      msg: null,
+      data: null
+    })
   }
 }
 
-exports.sigIn = async (req, res) => {
-  let { email, password } = req.body
-  email = email.trim()
+exports.signIn = async (req, res) => {
+  const { email, password } = req.body
   const sql = 'SELECT * FROM users WHERE email = ?'
   const params = [email]
 
@@ -93,14 +74,19 @@ exports.sigIn = async (req, res) => {
     // res.setHeader('authorization', token)
     res.json({
       error: null,
-      msg: "¡Usuario logueado!",
+      msg: "¡Sesión iniciada!",
       token
     })
 
     return
   } catch (error) {
-    console.log(error)
-    return new Error(error)
+    res.json({
+      error,
+      msg: null,
+      data: null
+    })
+
+    return
   }
 }
 

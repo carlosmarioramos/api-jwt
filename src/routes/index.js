@@ -5,8 +5,8 @@ const { isAuthorized } = require('../middlewares/isAuthorized')
 
 router.get('/', ctrlRouter.root)
 
-router.post('/signup', ctrlRouter.sigUp)
-router.post('/sigin', ctrlRouter.sigIn)
+router.post('/signup', ctrlRouter.signUp)
+router.post('/signin', ctrlRouter.signIn)
 
 router.get('/home', isAuthorized, ctrlRouter.home)
 
